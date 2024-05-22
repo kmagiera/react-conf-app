@@ -1,11 +1,11 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native';
 
-import { ThemedText, ThemedView } from "./Themed";
+import { ThemedText, ThemedView } from './Themed';
 
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { Session } from "@/types";
-import { formatSessionTime } from "@/utils/formatDate";
+import { useReactConfStore } from '@/store/reactConfStore';
+import { theme } from '@/theme';
+import { Session } from '@/types';
+import { formatSessionTime } from '@/utils/formatDate';
 
 type Props = {
   session: Session;
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.borderRadius10,
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
