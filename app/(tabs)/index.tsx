@@ -1,7 +1,7 @@
-import { useScrollToTop } from "@react-navigation/native";
-import { useFocusEffect } from "expo-router";
-import React, { useState } from "react";
-import { ActivityIndicator, StyleSheet, View, ViewToken } from "react-native";
+import { useScrollToTop } from '@react-navigation/native';
+import { useFocusEffect } from 'expo-router';
+import React, { useState } from 'react';
+import { ActivityIndicator, StyleSheet, View, ViewToken } from 'react-native';
 import Animated, {
   useAnimatedRef,
   useSharedValue,
@@ -10,34 +10,34 @@ import Animated, {
   SharedValue,
   Extrapolation,
   interpolate,
-} from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+} from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 
-import { ActivityCard } from "@/components/ActivityCard";
-import { NotFound } from "@/components/NotFound";
-import { ReactConfHeader } from "@/components/ReactConfHeader";
-import { TalkCard } from "@/components/TalkCard";
-import { ThemedText, ThemedView, useThemeColor } from "@/components/Themed";
-import { TimeZoneSwitch } from "@/components/TimeZoneSwitch";
-import { COLLAPSED_HEADER, EXPANDED_HEADER, ROW_HEIGHT } from "@/consts";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { Session } from "@/types";
+import { ActivityCard } from '@/components/ActivityCard';
+import { NotFound } from '@/components/NotFound';
+import { ReactConfHeader } from '@/components/ReactConfHeader';
+import { TalkCard } from '@/components/TalkCard';
+import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed';
+import { TimeZoneSwitch } from '@/components/TimeZoneSwitch';
+import { COLLAPSED_HEADER, EXPANDED_HEADER, ROW_HEIGHT } from '@/consts';
+import { useReactConfStore } from '@/store/reactConfStore';
+import { theme } from '@/theme';
+import { Session } from '@/types';
 
 type SessionItem =
   | {
-      type: "session";
+      type: 'session';
       day: number;
       item: Session;
     }
   | {
-      type: "section-header";
+      type: 'section-header';
       day: number;
     };
 
 const AnimatedFlatList = Animated.createAnimatedComponent(
-  FlatList<SessionItem>,
+  FlatList<SessionItem>
 );
 
 export default function Schedule() {
@@ -56,7 +56,7 @@ export default function Schedule() {
       scrollOffset.value,
       [COLLAPSED_HEADER, EXPANDED_HEADER],
       [0, ROW_HEIGHT],
-      Extrapolation.CLAMP,
+      Extrapolation.CLAMP
     ),
   }));
 
@@ -99,9 +99,9 @@ export default function Schedule() {
   };
 
   const data = [
-    ...dayOne.map((item) => ({ type: "session", day: 1, item })),
-    { type: "section-header", day: 2 },
-    ...dayTwo.map((item) => ({ type: "session", day: 2, item })),
+    ...dayOne.map((item) => ({ type: 'session', day: 1, item })),
+    { type: 'section-header', day: 2 },
+    ...dayTwo.map((item) => ({ type: 'session', day: 2, item })),
   ] as SessionItem[];
 
   if (!dayOne.length || !dayTwo.length) {
@@ -112,8 +112,7 @@ export default function Schedule() {
     <ThemedView
       style={[styles.container, { paddingTop: insets.top }]}
       darkColor={theme.colorDarkBlue}
-      lightColor={theme.colorWhite}
-    >
+      lightColor={theme.colorWhite}>
       <ThemedView style={[styles.container, paddingTopStyle]} animated>
         <AnimatedFlatList
           ref={scrollRef}
@@ -138,17 +137,16 @@ export default function Schedule() {
                   },
                 ]}
                 lightColor={theme.colorWhite}
-                darkColor={theme.colorDarkBlue}
-              >
+                darkColor={theme.colorDarkBlue}>
                 <SectionListButton
                   title="Day 1"
-                  subtitle={!shouldUseLocalTz ? "(May 15)" : null}
+                  subtitle={!shouldUseLocalTz ? '(May 15)' : null}
                   isBold={shouldShowDayOneHeader}
                   onPress={() => scrollToSection({ isDayOne: true })}
                 />
                 <SectionListButton
                   title="Day 2"
-                  subtitle={!shouldUseLocalTz ? "(May 16)" : null}
+                  subtitle={!shouldUseLocalTz ? '(May 16)' : null}
                   isBold={!shouldShowDayOneHeader}
                   onPress={() => scrollToSection({ isDayOne: false })}
                 />
@@ -157,7 +155,7 @@ export default function Schedule() {
           }}
           renderItem={({ item }) => {
             const isDayOne = item.day === 1;
-            if (item.type === "section-header") {
+            if (item.type === 'section-header') {
               return (
                 <ThemedView
                   style={[
@@ -169,17 +167,16 @@ export default function Schedule() {
                     },
                   ]}
                   lightColor={theme.colorWhite}
-                  darkColor={theme.colorDarkBlue}
-                >
+                  darkColor={theme.colorDarkBlue}>
                   <SectionListButton
                     title="Day 1"
-                    subtitle={!shouldUseLocalTz ? "(May 15)" : null}
+                    subtitle={!shouldUseLocalTz ? '(May 15)' : null}
                     isBold={isDayOne}
                     onPress={() => scrollToSection({ isDayOne: true })}
                   />
                   <SectionListButton
                     title="Day 2"
-                    subtitle={!shouldUseLocalTz ? "(May 16)" : null}
+                    subtitle={!shouldUseLocalTz ? '(May 16)' : null}
                     isBold={!isDayOne}
                     onPress={() => scrollToSection({ isDayOne: false })}
                   />
@@ -226,8 +223,7 @@ const SectionListButton = ({
         lightColor={theme.colorBlack}
         darkColor={theme.colorWhite}
         fontSize={24}
-        style={opacity}
-      >
+        style={opacity}>
         {title}
         {subtitle ? (
           <ThemedText fontWeight="medium"> {subtitle} </ThemedText>
@@ -245,14 +241,14 @@ interface HeaderProps {
 function Header({ scrollOffset, refreshing }: HeaderProps) {
   const settingsBgColor = useThemeColor({
     light: theme.colorThemeGrey,
-    dark: "rgba(255, 255, 255, 0.2)",
+    dark: 'rgba(255, 255, 255, 0.2)',
   });
 
   const animatedHeader = useAnimatedStyle(() => ({
     height: interpolate(
       scrollOffset.value,
       [0, EXPANDED_HEADER],
-      [EXPANDED_HEADER, 0],
+      [EXPANDED_HEADER, 0]
     ),
   }));
 
@@ -261,13 +257,13 @@ function Header({ scrollOffset, refreshing }: HeaderProps) {
       scrollOffset.value,
       [0, ROW_HEIGHT],
       [ROW_HEIGHT, 0],
-      Extrapolation.CLAMP,
+      Extrapolation.CLAMP
     ),
     paddingVertical: interpolate(
       scrollOffset.value,
       [0, ROW_HEIGHT],
       [theme.space8, 0],
-      Extrapolation.CLAMP,
+      Extrapolation.CLAMP
     ),
   }));
 
@@ -275,11 +271,10 @@ function Header({ scrollOffset, refreshing }: HeaderProps) {
     <Animated.View style={[styles.header, animatedHeader]}>
       <ReactConfHeader scrollOffset={scrollOffset} />
       <Animated.View
-        style={[styles.row, { backgroundColor: settingsBgColor }, animatedRow]}
-      >
+        style={[styles.row, { backgroundColor: settingsBgColor }, animatedRow]}>
         <TimeZoneSwitch />
       </Animated.View>
-      <View style={{ position: "absolute", right: 20, top: 15 }}>
+      <View style={{ position: 'absolute', right: 20, top: 15 }}>
         <ActivityIndicator
           size="small"
           hidesWhenStopped={true}
@@ -298,23 +293,23 @@ const styles = StyleSheet.create({
     marginBottom: theme.space12,
     paddingHorizontal: theme.space16,
     paddingVertical: theme.space12,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderBottomWidth: 3,
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: theme.space8,
     backgroundColor: theme.colorThemeLightGrey,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   header: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     zIndex: 1,
-    width: "100%",
+    width: '100%',
   },
 });

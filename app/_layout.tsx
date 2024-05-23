@@ -164,7 +164,6 @@ export default function Layout() {
               }}
             />
           </Stack>
-          <OfflineBanner />
         </ThemeProvider>
       </ActionSheetProvider>
     </GestureHandlerRootView>

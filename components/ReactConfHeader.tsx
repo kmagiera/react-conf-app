@@ -1,30 +1,31 @@
-import { Image } from "expo-image";
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Image } from 'expo-image';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import Animated, {
   Extrapolation,
   SharedValue,
   interpolate,
   useAnimatedStyle,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
-import { ThemedText, ThemedView, useThemeColor } from "./Themed";
-import { theme } from "../theme";
+import { ThemedText, ThemedView, useThemeColor } from './Themed';
+import { theme } from '../theme';
 
-import { COLLAPSED_HEADER, EXPANDED_HEADER, ROW_HEIGHT } from "@/consts";
+import { COLLAPSED_HEADER, EXPANDED_HEADER, ROW_HEIGHT } from '@/consts';
+import { preview } from 'react-native-ide';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const interpolateHeader = (
   scrollOffset: SharedValue<number>,
-  outputRange: number[],
+  outputRange: number[]
 ) => {
-  "worklet";
+  'worklet';
   return interpolate(
     scrollOffset.value,
     [COLLAPSED_HEADER, EXPANDED_HEADER],
     outputRange,
-    Extrapolation.CLAMP,
+    Extrapolation.CLAMP
   );
 };
 
@@ -72,12 +73,11 @@ export function ReactConfHeader({ scrollOffset }: ReactConfHeaderProps) {
       style={[styles.header, headerStyle]}
       darkColor={theme.colorDarkBlue}
       lightColor={theme.colorWhite}
-      animated
-    >
+      animated>
       <AnimatedImage
         priority="high"
         tintColor={tintColor}
-        source={require("../assets/images/react-logo.png")}
+        source={require('../assets/images/react-logo.png')}
         style={[styles.reactImage, animatedLogoStyle]}
       />
       <View>
@@ -87,16 +87,14 @@ export function ReactConfHeader({ scrollOffset }: ReactConfHeaderProps) {
           style={[styles.logoText, firstLineStyle]}
           darkColor={theme.colorWhite}
           lightColor={theme.colorBlack}
-          animated
-        >
+          animated>
           REACT
         </ThemedText>
         <ThemedText
           fontSize={24}
           style={[styles.logoText, secondLineStyle]}
-          animated
-        >
-          CONF 2024
+          animated>
+          CONF 2025
         </ThemedText>
       </View>
     </ThemedView>
@@ -112,9 +110,9 @@ const styles = StyleSheet.create({
     paddingStart: theme.space8,
   },
   header: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginHorizontal: theme.space8,
   },
 });
